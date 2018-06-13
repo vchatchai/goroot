@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"gopath/config"
+	"github.com/vchatchai/gopath/config"
 
 	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
@@ -30,7 +30,7 @@ func ChangePath() {
 	// AddNewPath("/var/")
 
 	path, _ := config.GetPath()
-	path = append(path, config.Path{Key: "QUIT"})
+	path = append(path, config.Path{Key: config.QUIT})
 	// keys := reflect.ValueOf(mapPath).MapKeys()
 
 	// prompt := promptui.Select{
@@ -38,7 +38,7 @@ func ChangePath() {
 	// 	Items: path,
 	// }
 	prompt := promptui.Select{
-		Label: "Select Path",
+		Label: "LIST GOPATH",
 		Items: path,
 	}
 
@@ -51,7 +51,7 @@ func ChangePath() {
 
 	results := strings.Split(result, ":")
 
-	if results[0] == "QUIT" {
+	if results[0] == config.QUIT {
 		return
 	}
 

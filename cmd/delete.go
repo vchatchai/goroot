@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"gopath/config"
+	"github.com/vchatchai/gopath/config"
 
 	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
@@ -25,16 +25,11 @@ var deleteCmd = &cobra.Command{
 
 func DeletePath(cmd *cobra.Command, args []string) {
 
-	// AddNewPath("/usr/")
-	// AddNewPath("/home/")
-	// AddNewPath("/var/")
-
 	path, _ := config.GetPath()
-
-	// keys := reflect.ValueOf(mapPath).MapKeys()
+	path = append(path, config.Path{Key: config.QUIT})
 
 	prompt := promptui.Select{
-		Label: "Select Project Path",
+		Label: "LIST GOPATH",
 		Items: path,
 	}
 
@@ -44,15 +39,18 @@ func DeletePath(cmd *cobra.Command, args []string) {
 		fmt.Printf("Prompt failed %v\n", err)
 		return
 	}
-	fmt.Println(result)
+	if result == config.QUIT {
+		return
+	}
 	results := strings.Split(result, ":")
+
 	result = strings.Trim(results[1], " ")
-	fmt.Println(result)
+
 	err = config.RemovePath(result)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	fmt.Printf("RemovePath %q\n", result)
+	fmt.Printf("Remove GOPath %q\n", result)
 
 }

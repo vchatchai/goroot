@@ -2,12 +2,15 @@ package config
 
 import (
 	"fmt"
+	"path"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 )
 
 const FILE_CONFIG_NAME = "gopath"
+const QUIT = "quit"
+const CONFIG_FILE = ".gopath.json"
 
 var FILE_CONFIG_PATH string
 
@@ -19,13 +22,14 @@ type Path struct {
 }
 
 func (p Path) String() string {
+	if QUIT == p.Key {
+		return QUIT
+	}
 	return p.Value + " : " + p.Key
 }
 func init() {
-	path, _ := homedir.Dir()
-
-	// filepath := path.Join(path.Dir(filename), "../config/settings.toml")
-	FILE_CONFIG_PATH = path + "/.gopath.json"
+	p, _ := homedir.Dir()
+	FILE_CONFIG_PATH = path.Join(p, CONFIG_FILE)
 	viper.SetConfigFile(FILE_CONFIG_PATH)
 	viper.ReadInConfig()
 }
@@ -60,9 +64,7 @@ func AddNewPath(key, value string) (err error) {
 func RemovePath(path string) (err error) {
 	paths := viper.GetStringMap(KEY_GOPATH)
 
-	fmt.Println("RemovePath", paths)
 	delete(paths, path)
-	fmt.Println("RemovePath", paths)
 
 	viper.Set(KEY_GOPATH, paths)
 	err = viper.WriteConfig()

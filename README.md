@@ -1,1 +1,1 @@
-# gopath
+# gopath is utility for change $GOPATH

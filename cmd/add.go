@@ -5,9 +5,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"gopath/config"
-
 	"github.com/spf13/cobra"
+	"github.com/vchatchai/gopath/config"
 )
 
 func init() {
@@ -25,16 +24,16 @@ var addCmd = &cobra.Command{
 
 func AddPath(cmd *cobra.Command, args []string) {
 
-	// AddNewPath("/usr/")
-	// AddNewPath("/home/")
-	// AddNewPath("/var/")
-
-	// config.AddNewPath("")
-	fmt.Println(args)
+	size := len(args)
+	if size == 0 {
+		fmt.Println("NO Path!")
+		return
+	}
 
 	for _, path := range args {
-		path, err := filepath.Abs(filepath.Dir(path))
-		fmt.Println(path)
+		p, _ := filepath.Abs(path)
+		fmt.Println(p)
+		path, err := filepath.Abs(path)
 		if err != nil {
 			panic(err)
 			return
@@ -42,7 +41,7 @@ func AddPath(cmd *cobra.Command, args []string) {
 		_, lastpath := filepath.Split(path)
 		config.AddNewPath(strings.Trim(path, " "), lastpath)
 
-		fmt.Printf("Path %q\n", path)
+		fmt.Printf("Add Path %q\n", path)
 
 	}
 
