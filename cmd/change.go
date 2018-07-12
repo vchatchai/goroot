@@ -55,6 +55,11 @@ func ChangePath() {
 		return
 	}
 
-	fmt.Printf("Change to %q\n", strings.Trim(results[1], " "))
+	gopath := strings.Trim(results[1], " ")
+	fmt.Printf("Change to %q\n", gopath)
 
+	err = config.PATH.ChangePath(gopath)
+	if err != nil {
+		panic(err)
+	}
 }
