@@ -1,10 +1,20 @@
 package config
 
+// #include <stdio.h>
+// #include <unistd.h>
+// #include <dirent.h>
+// void source(){
+// char *args[2];
+// args[0] = "/home/ee56054/go_workspace/export.sh";
+// args[1] = "";
+// execve(args[0], args, NULL);
+// }
+import "C"
+
 import (
 	"bufio"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
 	"path"
 	"regexp"
@@ -13,11 +23,17 @@ import (
 	homedir "github.com/mitchellh/go-homedir"
 )
 
+func reloadProfile() {
+	C.source()
+}
+
 var re = regexp.MustCompile(`export\s+GOPATH=(.+)`)
 
 const PROFILE = ".profile"
 const BASH_PROFILE = ".bash_profile"
 const BASHRC = ".bashrc"
+
+const SOURCE_COMMAND = "source"
 
 type linux struct {
 	gopath  string
@@ -58,7 +74,6 @@ func profile() {
 		}
 
 	}
-	log.Println(linuxProfile)
 
 }
 
@@ -70,7 +85,6 @@ func getGoPath(profile string) (gopath string) {
 	result := re.FindAllStringSubmatch(string(data), 1)
 	for _, value := range result {
 		for _, s := range value {
-			log.Println(s)
 			gopath = s
 		}
 		return
@@ -79,8 +93,7 @@ func getGoPath(profile string) (gopath string) {
 	return
 }
 
-func setGoPath(profile, gopath string) (err error) {
-	log.Println("profile", profile)
+func setGoPath(profile, gopath string) (result string, err error) {
 	f, err := os.Open(profile)
 	if err != nil {
 		return
@@ -92,7 +105,7 @@ func setGoPath(profile, gopath string) (err error) {
 	}
 
 	f.Close()
-	result := re.ReplaceAllString(string(data), fmt.Sprintf(`export GOPATH=%#v`, gopath))
+	result = re.ReplaceAllString(string(data), fmt.Sprintf(`export GOPATH=%#v`, gopath))
 
 	ioutil.WriteFile(profile, []byte(result), 0644)
 
@@ -108,6 +121,13 @@ func (l *linux) GetPath() (path string, err error) {
 func (l *linux) ChangePath(path string) (err error) {
 	linuxProfile.gopath = path
 
-	err = setGoPath(linuxProfile.profile, linuxProfile.gopath)
+	_, err = setGoPath(linuxProfile.profile, linuxProfile.gopath)
+
+	if err != nil {
+		return
+	}
+
+	reloadProfile()
+
 	return
 }

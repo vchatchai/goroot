@@ -25,20 +25,12 @@ var changeCmd = &cobra.Command{
 
 func ChangePath() {
 
-	// AddNewPath("/usr/")
-	// AddNewPath("/home/")
-	// AddNewPath("/var/")
-
 	path, _ := config.GetPath()
 	path = append(path, config.Path{Key: config.QUIT})
-	// keys := reflect.ValueOf(mapPath).MapKeys()
+	value, _ := config.PATH.GetPath()
 
-	// prompt := promptui.Select{
-	// 	Label: "Select Path",
-	// 	Items: path,
-	// }
 	prompt := promptui.Select{
-		Label: "LIST GOPATH",
+		Label: fmt.Sprintf("Current GOPATH: %s", value),
 		Items: path,
 	}
 
@@ -56,7 +48,7 @@ func ChangePath() {
 	}
 
 	gopath := strings.Trim(results[1], " ")
-	fmt.Printf("Change to %q\n", gopath)
+	fmt.Printf("Current GOPATH %q\n", gopath)
 
 	err = config.PATH.ChangePath(gopath)
 	if err != nil {
