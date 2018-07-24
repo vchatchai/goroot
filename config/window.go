@@ -1,6 +1,7 @@
 package config
 
 import (
+	"os/exec"
 	"runtime"
 )
 
@@ -27,6 +28,7 @@ func (l *window) GetPath() (path string, err error) {
 
 func (l *window) ChangePath(path string) (err error) {
 	windowProfile.gopath = path
-
+	cmd := exec.Command("setx", GOPATH_CONSTANT, path)
+	cmd.Run()
 	return
 }

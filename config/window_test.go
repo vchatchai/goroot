@@ -40,13 +40,16 @@ func Test_window_ChangePath(t *testing.T) {
 	type args struct {
 		path string
 	}
+
+	f := fields{"C:\\Users\\gl\\go"}
+
 	tests := []struct {
 		name    string
 		fields  fields
 		args    args
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{"TestWindowChangePath", f, args{f.gopath}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

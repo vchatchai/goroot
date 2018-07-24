@@ -1,15 +1,6 @@
 package config
 
-// #include <stdio.h>
-// #include <unistd.h>
-// #include <dirent.h>
-// void source(){
-// char *args[2];
-// args[0] = "/home/ee56054/go_workspace/export.sh";
-// args[1] = "";
-// execve(args[0], args, NULL);
-// }
-import "C"
+ 
 
 import (
 	"bufio"
@@ -23,8 +14,7 @@ import (
 	homedir "github.com/mitchellh/go-homedir"
 )
 
-func reloadProfile() {
-	C.source()
+func reloadProfile() { 
 }
 
 var re = regexp.MustCompile(`export\s+GOPATH=(.+)`)

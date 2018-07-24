@@ -41,7 +41,7 @@ func ChangePath() {
 		return
 	}
 
-	results := strings.Split(result, ":")
+	results := strings.Split(result, "::")
 
 	if results[0] == config.QUIT {
 		return

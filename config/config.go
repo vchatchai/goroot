@@ -25,7 +25,7 @@ func (p Path) String() string {
 	if QUIT == p.Key {
 		return QUIT
 	}
-	return p.Value + " : " + p.Key
+	return p.Value + "::" + p.Key
 }
 func init() {
 	p, _ := homedir.Dir()
@@ -73,17 +73,8 @@ func RemovePath(path string) (err error) {
 }
 
 func writeConfig() (err error) {
-	// viper.SetDefault("config", "")
-	fmt.Println("tesat")
-	// viper.AddConfigPath(FILE_CONFIG_PATH)
 	fmt.Println(FILE_CONFIG_PATH)
 	viper.SetConfigFile(FILE_CONFIG_PATH)
-	// viper.SetConfigType("json")
-	// viper.SetConfigName(".gopath")
-	// paths := []string{
-	// 	"/usr",
-	// 	"/var",
-	// }
 
 	paths := map[string]string{
 		"/var": "",
@@ -95,8 +86,6 @@ func writeConfig() (err error) {
 	err = viper.WriteConfig()
 
 	if err != nil {
-		// log.Print(fmt.Errorf("Fatal error config file: %s \n", err))
-
 		panic(err)
 	}
 
