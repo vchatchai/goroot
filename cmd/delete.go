@@ -42,7 +42,7 @@ func DeletePath(cmd *cobra.Command, args []string) {
 	if result == config.QUIT {
 		return
 	}
-	results := strings.Split(result, ":")
+	results := strings.Split(result, "::")
 
 	result = strings.Trim(results[1], " ")
 
