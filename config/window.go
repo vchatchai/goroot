@@ -1,6 +1,7 @@
 package config
 
 import (
+	"os"
 	"os/exec"
 	"runtime"
 )
@@ -14,7 +15,7 @@ var windowProfile *window
 func init() {
 
 	if runtime.GOOS == "windows" {
-		windowProfile = &window{}
+		windowProfile = &window{os.Getenv(GOPATH_CONSTANT)}
 		PATH = windowProfile
 	}
 
