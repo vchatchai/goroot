@@ -1,7 +1,10 @@
 
 # Install
 - download file 
-- extract compression file
+  - linux https://github.com/vchatchai/gopath/releases/download/v0.1/gopath.linux.tar.gz
+  - macos https://github.com/vchatchai/gopath/releases/download/v0.1/gopath.macos.tar.gz
+  - window https://github.com/vchatchai/gopath/releases/download/v0.1/gopath.zip
+- extract compress file
 - move the gopath to bin folder
 
 # Howto use
@@ -18,6 +21,15 @@ this command for select gopath in list
 gopath 
 gopath change
 ```
+- window 
+  - can use move select by  h j k l  key
+- linux, macos 
+  - can use arrow and h j k l
+  - after select gopath, shoud execute 
+  ```
+  source ~/.profile
+  ```
+
 ![GOPATH change](https://github.com/vchatchai/gopath/blob/master/doc/gopath_change.gif)
 ## Delete GOPATH
 this command for delete gopath in list
