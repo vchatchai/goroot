@@ -29,7 +29,7 @@ gopath change
   ```
   source ~/.profile
   ```
-
+then reopen application again
 ![GOPATH change](https://github.com/vchatchai/gopath/blob/master/doc/gopath_change.gif)
 ## Delete GOPATH
 this command for delete gopath in list
