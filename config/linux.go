@@ -1,7 +1,5 @@
 package config
 
- 
-
 import (
 	"bufio"
 	"fmt"
@@ -14,7 +12,7 @@ import (
 	homedir "github.com/mitchellh/go-homedir"
 )
 
-func reloadProfile() { 
+func reloadProfile() {
 }
 
 var re = regexp.MustCompile(`export\s+GOPATH=(.+)`)
@@ -30,11 +28,12 @@ type linux struct {
 	profile string
 }
 
-var linuxProfile *linux = &linux{}
+var linuxProfile *linux
 
 func init() {
 
 	if runtime.GOOS == "linux" {
+		linuxProfile = &linux{}
 		profile()
 		PATH = linuxProfile
 	}
