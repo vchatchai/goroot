@@ -36,7 +36,7 @@ func TestGetPath(t *testing.T) {
 
 func Test_linux_ChangePath(t *testing.T) {
 	type fields struct {
-		gopath  string
+		goroot  string
 		profile string
 	}
 	type args struct {
@@ -48,13 +48,13 @@ func Test_linux_ChangePath(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		{"Test Change Path", fields{gopath: `$HOME/go_workspace`, profile: `/home/ee56054/.profile`}, args{`/home/ee56054/go101`}, false},
+		{"Test Change Path", fields{goroot: `$HOME/go_workspace`, profile: `/home/ee56054/.profile`}, args{`/home/ee56054/go101`}, false},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			l := &linux{
-				gopath:  tt.fields.gopath,
+				goroot:  tt.fields.goroot,
 				profile: tt.fields.profile,
 			}
 			if err := l.ChangePath(tt.args.path); (err != nil) != tt.wantErr {

@@ -6,7 +6,7 @@ import (
 
 func Test_window_GetPath(t *testing.T) {
 	type fields struct {
-		gopath string
+		goroot string
 	}
 	tests := []struct {
 		name     string
@@ -19,7 +19,7 @@ func Test_window_GetPath(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			l := &window{
-				gopath: tt.fields.gopath,
+				goroot: tt.fields.goroot,
 			}
 			gotPath, err := l.GetPath()
 			if (err != nil) != tt.wantErr {
@@ -35,7 +35,7 @@ func Test_window_GetPath(t *testing.T) {
 
 func Test_window_ChangePath(t *testing.T) {
 	type fields struct {
-		gopath string
+		goroot string
 	}
 	type args struct {
 		path string
@@ -49,12 +49,12 @@ func Test_window_ChangePath(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		{"TestWindowChangePath", f, args{f.gopath}, false},
+		{"TestWindowChangePath", f, args{f.goroot}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			l := &window{
-				gopath: tt.fields.gopath,
+				goroot: tt.fields.goroot,
 			}
 			if err := l.ChangePath(tt.args.path); (err != nil) != tt.wantErr {
 				t.Errorf("window.ChangePath() error = %v, wantErr %v", err, tt.wantErr)

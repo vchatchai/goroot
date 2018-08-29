@@ -13,8 +13,8 @@ func init() {
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "0.1",
-	Long:  `GoPath 0.1`,
+	Long:  `goroot 0.1`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("GoPath v0.1 ")
+		fmt.Println("goroot v0.1 ")
 	},
 }

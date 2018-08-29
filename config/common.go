@@ -1,10 +1,10 @@
 package config
 
-const GOPATH_CONSTANT = `GOPATH`
+const GOROOT_CONSTANT = `GOROOT`
 
-type GOPATH interface {
+type GOROOT interface {
 	ChangePath(path string) error
 	GetPath() (string, error)
 }
 
-var PATH GOPATH
+var PATH GOROOT

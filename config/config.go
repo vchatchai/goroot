@@ -8,13 +8,13 @@ import (
 	"github.com/spf13/viper"
 )
 
-const FILE_CONFIG_NAME = "gopath"
+const FILE_CONFIG_NAME = "goroot"
 const QUIT = "quit"
-const CONFIG_FILE = ".gopath.json"
+const CONFIG_FILE = ".goroot.json"
 
 var FILE_CONFIG_PATH string
 
-const KEY_GOPATH = "GOPATH"
+const KEY_GOROOT = "GOROOT"
 
 type Path struct {
 	Key   string
@@ -40,7 +40,7 @@ func GetConfig(key string) (str map[string]string, err error) {
 }
 
 func GetPath() (path []Path, err error) {
-	mapPath, err := GetConfig(KEY_GOPATH)
+	mapPath, err := GetConfig(KEY_GOROOT)
 	if err != nil {
 		return
 	}
@@ -52,21 +52,21 @@ func GetPath() (path []Path, err error) {
 
 func AddNewPath(key, value string) (err error) {
 
-	paths := viper.GetStringMap(KEY_GOPATH)
+	paths := viper.GetStringMap(KEY_GOROOT)
 
 	paths[key] = value
 
-	viper.Set(KEY_GOPATH, paths)
+	viper.Set(KEY_GOROOT, paths)
 	err = viper.WriteConfig()
 	return
 }
 
 func RemovePath(path string) (err error) {
-	paths := viper.GetStringMap(KEY_GOPATH)
+	paths := viper.GetStringMap(KEY_GOROOT)
 
 	delete(paths, path)
 
-	viper.Set(KEY_GOPATH, paths)
+	viper.Set(KEY_GOROOT, paths)
 	err = viper.WriteConfig()
 
 	return
@@ -81,7 +81,7 @@ func writeConfig() (err error) {
 		"/usr": "",
 	}
 
-	viper.Set(KEY_GOPATH, paths)
+	viper.Set(KEY_GOROOT, paths)
 
 	err = viper.WriteConfig()
 

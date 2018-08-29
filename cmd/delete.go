@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/vchatchai/gopath/config"
+	"github.com/vchatchai/goroot/config"
 
 	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
@@ -17,7 +17,7 @@ func init() {
 var deleteCmd = &cobra.Command{
 	Use:   "delete",
 	Short: "delete path",
-	Long:  `delete gopath`,
+	Long:  `delete goroot`,
 	Run: func(cmd *cobra.Command, args []string) {
 		DeletePath(cmd, args)
 	},
@@ -29,7 +29,7 @@ func DeletePath(cmd *cobra.Command, args []string) {
 	path = append(path, config.Path{Key: config.QUIT})
 
 	prompt := promptui.Select{
-		Label: "LIST GOPATH",
+		Label: "LIST GOROOT",
 		Items: path,
 	}
 
@@ -51,6 +51,6 @@ func DeletePath(cmd *cobra.Command, args []string) {
 		fmt.Println(err)
 	}
 
-	fmt.Printf("Remove GOPath %q\n", result)
+	fmt.Printf("Remove GOROOT %q\n", result)
 
 }

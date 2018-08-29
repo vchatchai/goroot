@@ -8,9 +8,9 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "gopath",
-	Short: "gopath is utility for change $GOPATH",
-	Long:  `gopath is utility for change $GOPATH`,
+	Use:   "goroot",
+	Short: "goroot is utility for change $GOROOT",
+	Long:  `goroot is utility for change $GOROOT`,
 	Run: func(cmd *cobra.Command, args []string) {
 		ChangePath()
 	},

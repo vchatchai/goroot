@@ -6,7 +6,7 @@ import (
 
 func Test_darwin_ChangePath(t *testing.T) {
 	type fields struct {
-		gopath  string
+		goroot  string
 		profile string
 	}
 	type args struct {
@@ -18,12 +18,12 @@ func Test_darwin_ChangePath(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		{"Test Change Path", fields{gopath: `/users/chatchaivichai/gopath`, profile: `/users/chatchaivichai/.profile`}, args{`/users/chatchaivichai/gopath`}, false},
+		{"Test Change Path", fields{goroot: `/users/chatchaivichai/goroot`, profile: `/users/chatchaivichai/.profile`}, args{`/users/chatchaivichai/goroot`}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			l := &darwin{
-				gopath:  tt.fields.gopath,
+				goroot:  tt.fields.goroot,
 				profile: tt.fields.profile,
 			}
 			if err := l.ChangePath(tt.args.path); (err != nil) != tt.wantErr {
@@ -35,7 +35,7 @@ func Test_darwin_ChangePath(t *testing.T) {
 
 func Test_darwin_GetPath(t *testing.T) {
 	type fields struct {
-		gopath  string
+		goroot  string
 		profile string
 	}
 	tests := []struct {
@@ -44,12 +44,12 @@ func Test_darwin_GetPath(t *testing.T) {
 		wantPath string
 		wantErr  bool
 	}{
-		{"Test Change Path", fields{gopath: `/users/chatchaivichai/gopath`, profile: `/users/chatchaivichai/.profile`}, `/users/chatchaivichai/gopath`, false},
+		{"Test Change Path", fields{goroot: `/users/chatchaivichai/goroot`, profile: `/users/chatchaivichai/.profile`}, `/users/chatchaivichai/goroot`, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			l := &darwin{
-				gopath:  tt.fields.gopath,
+				goroot:  tt.fields.goroot,
 				profile: tt.fields.profile,
 			}
 			gotPath, err := l.GetPath()

@@ -15,7 +15,7 @@ import (
 func reloadProfile() {
 }
 
-var re = regexp.MustCompile(`export\s+GOPATH=(.+)`)
+var re = regexp.MustCompile(`export\s+GOROOT=(.+)`)
 
 const PROFILE = ".profile"
 const BASH_PROFILE = ".bash_profile"
@@ -24,7 +24,7 @@ const BASHRC = ".bashrc"
 const SOURCE_COMMAND = "source"
 
 type linux struct {
-	gopath  string
+	goroot  string
 	profile string
 }
 
@@ -50,15 +50,15 @@ func profile() {
 		profilePath := path.Join(homepath, pf)
 		_, err := os.Stat(profilePath)
 		if err == nil {
-			if linuxProfile.gopath == "" {
+			if linuxProfile.goroot == "" {
 				linuxProfile.profile = profilePath
 			}
 
-			gopath := getGoPath(profilePath)
+			goroot := getGoRoot(profilePath)
 
-			if gopath != "" {
+			if goroot != "" {
 				linuxProfile.profile = profilePath
-				linuxProfile.gopath = gopath
+				linuxProfile.goroot = goroot
 			}
 		}
 
@@ -66,7 +66,7 @@ func profile() {
 
 }
 
-func getGoPath(profile string) (gopath string) {
+func getGoRoot(profile string) (goroot string) {
 	f, _ := os.Open(profile)
 	defer f.Close()
 	data, _ := ioutil.ReadAll(bufio.NewReader(f))
@@ -74,7 +74,7 @@ func getGoPath(profile string) (gopath string) {
 	result := re.FindAllStringSubmatch(string(data), 1)
 	for _, value := range result {
 		for _, s := range value {
-			gopath = s
+			goroot = s
 		}
 		return
 	}
@@ -82,7 +82,7 @@ func getGoPath(profile string) (gopath string) {
 	return
 }
 
-func setGoPath(profile, gopath string) (result string, err error) {
+func setGoRoot(profile, goroot string) (result string, err error) {
 	f, err := os.Open(profile)
 	if err != nil {
 		return
@@ -94,7 +94,7 @@ func setGoPath(profile, gopath string) (result string, err error) {
 	}
 
 	f.Close()
-	result = re.ReplaceAllString(string(data), fmt.Sprintf(`export GOPATH=%#v`, gopath))
+	result = re.ReplaceAllString(string(data), fmt.Sprintf(`export GOROOT=%#v`, goroot))
 
 	ioutil.WriteFile(profile, []byte(result), 0644)
 
@@ -103,14 +103,14 @@ func setGoPath(profile, gopath string) (result string, err error) {
 
 func (l *linux) GetPath() (path string, err error) {
 
-	path = l.gopath
+	path = l.goroot
 	return
 }
 
 func (l *linux) ChangePath(path string) (err error) {
-	linuxProfile.gopath = path
+	linuxProfile.goroot = path
 
-	_, err = setGoPath(linuxProfile.profile, linuxProfile.gopath)
+	_, err = setGoRoot(linuxProfile.profile, linuxProfile.goroot)
 
 	if err != nil {
 		return

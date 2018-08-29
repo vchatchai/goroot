@@ -12,7 +12,7 @@ import (
 )
 
 type darwin struct {
-	gopath  string
+	goroot  string
 	profile string
 }
 
@@ -29,15 +29,15 @@ func init() {
 			profilePath := path.Join(homepath, pf)
 			_, err := os.Stat(profilePath)
 			if err == nil {
-				if darwinProfile.gopath == "" {
+				if darwinProfile.goroot == "" {
 					darwinProfile.profile = profilePath
 				}
 
-				gopath := getDarwinPath(profilePath)
+				goroot := getDarwinPath(profilePath)
 
-				if gopath != "" {
+				if goroot != "" {
 					darwinProfile.profile = profilePath
-					darwinProfile.gopath = gopath
+					darwinProfile.goroot = goroot
 				}
 			}
 
@@ -47,7 +47,7 @@ func init() {
 
 }
 
-func getDarwinPath(profile string) (gopath string) {
+func getDarwinPath(profile string) (goroot string) {
 	f, _ := os.Open(profile)
 	defer f.Close()
 	data, _ := ioutil.ReadAll(bufio.NewReader(f))
@@ -55,7 +55,7 @@ func getDarwinPath(profile string) (gopath string) {
 	result := re.FindAllStringSubmatch(string(data), 1)
 	for _, value := range result {
 		for _, s := range value {
-			gopath = s
+			goroot = s
 		}
 		return
 	}
@@ -63,7 +63,7 @@ func getDarwinPath(profile string) (gopath string) {
 	return
 }
 
-func setDarwinPath(profile, gopath string) (result string, err error) {
+func setDarwinPath(profile, goroot string) (result string, err error) {
 	f, err := os.Open(profile)
 	if err != nil {
 		return
@@ -75,7 +75,7 @@ func setDarwinPath(profile, gopath string) (result string, err error) {
 	}
 
 	f.Close()
-	result = re.ReplaceAllString(string(data), fmt.Sprintf(`export GOPATH=%#v`, gopath))
+	result = re.ReplaceAllString(string(data), fmt.Sprintf(`export GOROOT=%#v`, goroot))
 
 	ioutil.WriteFile(profile, []byte(result), 0644)
 
@@ -84,14 +84,14 @@ func setDarwinPath(profile, gopath string) (result string, err error) {
 
 func (l *darwin) GetPath() (path string, err error) {
 
-	path = l.gopath
+	path = l.goroot
 	return
 }
 
 func (l *darwin) ChangePath(path string) (err error) {
-	darwinProfile.gopath = path
+	darwinProfile.goroot = path
 
-	_, err = setDarwinPath(darwinProfile.profile, darwinProfile.gopath)
+	_, err = setDarwinPath(darwinProfile.profile, darwinProfile.goroot)
 
 	if err != nil {
 		return

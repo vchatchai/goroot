@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/vchatchai/gopath/config"
+	"github.com/vchatchai/goroot/config"
 
 	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
@@ -16,8 +16,8 @@ func init() {
 
 var changeCmd = &cobra.Command{
 	Use:   "change",
-	Short: "change $GOPATH",
-	Long:  `change $GOPATH`,
+	Short: "change $GOROOT",
+	Long:  `change $GOROOT`,
 	Run: func(cmd *cobra.Command, args []string) {
 		ChangePath()
 	},
@@ -30,7 +30,7 @@ func ChangePath() {
 	value, _ := config.PATH.GetPath()
 
 	prompt := promptui.Select{
-		Label: fmt.Sprintf("Current GOPATH: %s", value),
+		Label: fmt.Sprintf("Current GOROOT: %s", value),
 		Items: path,
 	}
 
@@ -47,10 +47,10 @@ func ChangePath() {
 		return
 	}
 
-	gopath := strings.Trim(results[1], " ")
-	fmt.Printf("Current GOPATH %q\n", gopath)
+	goroot := strings.Trim(results[1], " ")
+	fmt.Printf("Current GOROOT %q\n", goroot)
 
-	err = config.PATH.ChangePath(gopath)
+	err = config.PATH.ChangePath(goroot)
 	if err != nil {
 		panic(err)
 	}

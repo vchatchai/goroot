@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
-	"github.com/vchatchai/gopath/config"
+	"github.com/vchatchai/goroot/config"
 )
 
 func init() {
@@ -15,8 +15,8 @@ func init() {
 
 var addCmd = &cobra.Command{
 	Use:   "add",
-	Short: "add GOPATH",
-	Long:  `add GOPATH`,
+	Short: "add GOROOT",
+	Long:  `add GOROOT`,
 	Run: func(cmd *cobra.Command, args []string) {
 		AddPath(cmd, args)
 	},
