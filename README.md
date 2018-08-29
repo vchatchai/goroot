@@ -1,45 +1,45 @@
 
 # Install
 - download file 
-  - linux https://github.com/vchatchai/gopath/releases/download/v0.1/gopath.linux.tar.gz
-  - macos https://github.com/vchatchai/gopath/releases/download/v0.1/gopath.macos.tar.gz
-  - window https://github.com/vchatchai/gopath/releases/download/v0.1/gopath.zip
+  - linux https://github.com/vchatchai/goroot/releases/download/v0.1/goroot.linux.tar.gz
+  - macos https://github.com/vchatchai/goroot/releases/download/v0.1/goroot.macos.tar.gz
+  - window https://github.com/vchatchai/goroot/releases/download/v0.1/goroot.zip
 - extract compress file
-- move the gopath to bin folder
+- move the goroot to bin folder
 
 # Howto use
 
 ## Add GOPATH
 this command for add path into list
 ```
-gopath add 
+goroot add 
 ```
-![GOPATH add](https://github.com/vchatchai/gopath/blob/master/doc/gopath_add01.gif)
+![GOROOT add](https://github.com/vchatchai/goroot/blob/master/doc/goroot_add01.gif)
 ## Change GOPATH
-this command for select gopath in list
+this command for select goroot in list
 ```
-gopath 
-gopath change
+goroot 
+goroot change
 ```
 - window 
   - can use move select by  h j k l  key
 - linux, macos 
   - can use arrow and h j k l
-  - after select gopath, shoud execute 
+  - after select goroot, shoud execute 
   ```
   source ~/.profile
   ```
 then reopen application again
-![GOPATH change](https://github.com/vchatchai/gopath/blob/master/doc/gopath_change.gif)
+![GOROOT change](https://github.com/vchatchai/goroot/blob/master/doc/goroot_change.gif)
 ## Delete GOPATH
-this command for delete gopath in list
+this command for delete goroot in list
 ```
-gopath delete
+goroot delete
 ```
-![GOPATH delete](https://github.com/vchatchai/gopath/blob/master/doc/gopath_delete.gif)
+![GOROOT delete](https://github.com/vchatchai/goroot/blob/master/doc/goroot_delete.gif)
 ## Help
 this command is help
 ```
-gopath help 
+goroot help 
 ```
-![GOPATH help](https://github.com/vchatchai/gopath/blob/master/doc/gopath_help.gif)
+![GOROOT help](https://github.com/vchatchai/goroot/blob/master/doc/goroot_help.gif)
